@@ -19,8 +19,10 @@ yarn add iranian-calendar-events
 import ice from 'iranian-calendar-events';
 
 (async () => {
-  const yearEvents = await ice({ year: 1396 });
-  const monthEvent = await ice({ year: 1396, month: 12 });
+  const yearEvents = await ice({ year: 1396 }); // all events of the year
+  const monthEvents = await ice({ year: 1396, month: 12 }); // all events of the month
+  const dayEvents = await ice({ year: 1396, month: 12, day: 15 }); // all events of a day
+  const dayEventsInAllMonths = await ice({ year: 1396, day: 15 }); // all events of a day number in all months
   // That's it! You can use them now!
 })();
 ```

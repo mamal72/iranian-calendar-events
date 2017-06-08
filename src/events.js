@@ -1,11 +1,10 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
-import FormData from 'form-data';
 
-// The URL to use for posting forms
-const REQUEST_URL = 'http://www.time.ir/';
+// The base URL for events requests
+const REQUEST_BASE_URL = 'http://www.time.ir/fa/event/list/0';
 
-// Simply, normalizes the input text
+// Normalizes the input text
 // replace Persian numeric chars with English ones
 // removes the redundant chars like \n and whitespaces around
 const normalize = (text) => {
@@ -18,7 +17,22 @@ const normalize = (text) => {
   return result.trim();
 };
 
-export default async function getEvents({ year, month }) {
+// Returns request URL for events requests
+const getRequstUrl = ({ year, month, day }) => {
+  let url = REQUEST_BASE_URL;
+  if (year) {
+    url = `${url}/${year}`;
+  }
+  if (month) {
+    url = `${url}/${month}`;
+  }
+  if (day) {
+    url = `${url}/${day}`;
+  }
+  return url;
+};
+
+export default async function getEvents({ year, month, day }) {
   // We need year prop at least
   if (!year) {
     throw new Error('no year specified');
@@ -27,7 +41,7 @@ export default async function getEvents({ year, month }) {
   // If month is not present, we'll return all events of the year
   if (!month) {
     const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    return Promise.all(months.map(m => getEvents({ year, month: m })));
+    return Promise.all(months.map(m => getEvents({ year, month: m, day })));
   }
 
   // Validate month number (1 >= month <= 12)
@@ -35,17 +49,11 @@ export default async function getEvents({ year, month }) {
     throw new Error('invalid month number');
   }
 
-  // Create a form to send as request body
-  const form = new FormData();
-  form.append('responsive', 'true');
-  form.append('year', year);
-  form.append('month', month);
+  // Get events request URL
+  const requestUrl = getRequstUrl({ year, month, day });
 
-  // Send the request with POST method
-  const response = await fetch(REQUEST_URL, {
-    method: 'POST',
-    body: form,
-  });
+  // Send the request
+  const response = await fetch(requestUrl);
 
   // It's failed if it's not a 200
   if (response.status !== 200) {

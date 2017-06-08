@@ -2,6 +2,32 @@ import test from 'ava';
 
 import ice from '../';
 
+test('day events', async (t) => {
+  const events = await ice({ year: 1396, month: 1, day: 1 });
+  const expectedHoliday = {
+    day: 1,
+    month: 1,
+    year: 1396,
+    isHoliday: true,
+    title: 'جشن نوروز/جشن سال نو',
+  };
+  t.is(events.length, 1);
+  t.deepEqual(events[0], expectedHoliday);
+});
+
+test('day events of all months', async (t) => {
+  const events = await ice({ year: 1396, day: 1 });
+  const expectedHoliday = {
+    day: 1,
+    month: 1,
+    year: 1396,
+    isHoliday: true,
+    title: 'جشن نوروز/جشن سال نو',
+  };
+  t.is(events.length, 12);
+  t.deepEqual(events[0][0], expectedHoliday);
+});
+
 test('month events', async (t) => {
   const events = await ice({ year: 1396, month: 1 });
   const expectedHoliday = {
