@@ -1,0 +1,53 @@
+{
+  "name": "iranian-calendar-events",
+  "version": "0.1.4",
+  "description": "Fetch Iranian calendar events containing Jalali, Hijri and Gregorian from time.ir website",
+  "main": "index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "lint": "eslint index.js src",
+    "test": "npm run build && npm run lint && ava",
+    "build": "babel src -d lib",
+    "dev": "babel src -d lib -w"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "ava": {
+    "babel": "inherit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mamal72/iranian-calendar-events.git"
+  },
+  "keywords": [
+    "iran",
+    "iranian",
+    "calendar",
+    "persian",
+    "events",
+    "jalali",
+    "jalaali"
+  ],
+  "author": "Mohamad Jahani <m4m4lj@gmail.com> (https://github.com/mamal72)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mamal72/iranian-calendar-events/issues"
+  },
+  "homepage": "https://github.com/mamal72/iranian-calendar-events#readme",
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.5.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.1",
+    "form-data": "^2.1.4",
+    "node-fetch": "^1.7.1"
+  }
+}
