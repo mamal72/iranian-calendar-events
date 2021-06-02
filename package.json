@@ -1,6 +1,6 @@
 {
   "name": "iranian-calendar-events",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Fetch Iranian calendar events containing Jalali, Hijri and Gregorian from time.ir website",
   "main": "index.js",
   "files": [
